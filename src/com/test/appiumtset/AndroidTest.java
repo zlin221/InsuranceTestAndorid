@@ -27,8 +27,8 @@ private AppiumDriver driver;
 		File appDir = new File(classpathRoot,"/apps");
 		File app = new File(appDir,"com.vanchu.apps.insurance.apk");
 		DesiredCapabilities capabilities = new DesiredCapabilities();
-		capabilities.setCapability("deviceName","xiaomi-mi-2-208cbeb0");//xiaomi-mi-2-208cbeb0;lenovo_K50-t5_RSY5LZ89F67SJZYT
-		capabilities.setCapability("platformVersion","4.1.1");//leveno5.1
+		capabilities.setCapability("deviceName","oneplus-a0001-6428f2b8");//xiaomi-mi-2-208cbeb0;lenovo_K50-t5_RSY5LZ89F67SJZYT;oneplus-a0001-6428f2b8(android4.3)
+		capabilities.setCapability("platformVersion","4.3");//leveno5.1;xiaomi4.1.1;oneplus4.3
 		capabilities.setCapability("avd", "appium");
 		capabilities.setCapability("app", app.getAbsolutePath());
 		capabilities.setCapability("appPackage", "com.vanchu.apps.insurance");

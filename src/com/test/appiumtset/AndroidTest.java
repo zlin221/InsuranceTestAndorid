@@ -45,29 +45,59 @@ private AppiumDriver driver;
 			
 	}
 	
+	/***
+	 * 测试密码登陆
+	 * @auth jolie
+	 * 
+	 ***/
 	@Test
-	public void longin()
+	public void pwdLongin()
 	{
 		//启动app之后等待一段时间
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		
 		//获取个人主页
-		WebElement tab_mine = driver.findElement(By.id("com.vanchu.apps.insurance:id/main_layout_tab_mine"));
-		tab_mine.click();
+		WebElement tabMine = driver.findElement(By.id("com.vanchu.apps.insurance:id/main_layout_tab_mine"));
+		tabMine.click();
 		
 		//点击登录，进入登录页面
-		WebElement loginbtn = driver.findElement(By.id("com.vanchu.apps.insurance:id/mine_txt_user_name"));
-		loginbtn.click();
+		WebElement loginBtn = driver.findElement(By.id("com.vanchu.apps.insurance:id/mine_txt_user_name"));
+		loginBtn.click();
 	
 		//点击密码登录，进入密码登录页面
-		WebElement pwdlogin = driver.findElement(By.id("com.vanchu.apps.insurance:id/login_txt_pass_login"));
-		pwdlogin.click();
+		WebElement pwdLogin = driver.findElement(By.id("com.vanchu.apps.insurance:id/login_txt_pass_login"));
+		pwdLogin.click();
+			
 		
-		//获取手机号码输入框:com.vanchu.apps.insurance:id/user_info_input_edit_phone_number
-		//获取密码输入框:com.vanchu.apps.insurance:id/user_info_input_edit_password
+		//获取页面的所有输入框
+		List<AndroidElement> textFieldsList = driver.findElementsByClassName("android.widget.EditText");
+		//输入手机号码
+		textFieldsList.get(0).sendKeys("15019226379");
+		//输入密码
+		textFieldsList.get(1).sendKeys("123456");
+		
 		//登录按钮：com.vanchu.apps.insurance:id/pass_login_btn_login
+		WebElement pwdLoginBtn = driver.findElementById("com.vanchu.apps.insurance:id/pass_login_btn_login");
+		pwdLoginBtn.click();
 		
 	}
+	
+	/**
+	 * 修改头像 
+	 * 
+	 */
+	@Test
+	public void changeMineImage() {
+		//获取个人头像框
+		WebElement mineImage = driver.findElementById("com.vanchu.apps.insurance:id/mine_layout_user");
+		mineImage.click();
+		
+		
+	}
+	
+	
+	
+	
 	
 	@After
 	public void tearDown() throws Exception

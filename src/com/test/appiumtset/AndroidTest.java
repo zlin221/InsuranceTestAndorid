@@ -8,6 +8,7 @@ import io.appium.java_client.android.AndroidElement;
 import java.io.File;
 import java.net.URL;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
@@ -39,6 +40,8 @@ private static AppiumDriver driver;
 		capabilities.setCapability("app", app.getAbsolutePath());
 		capabilities.setCapability("appPackage", "com.vanchu.apps.insurance");
 		capabilities.setCapability("appActivity", ".module.splash.SplashActivity");
+		capabilities.setCapability("unicodeKeyboard", true);
+		capabilities.setCapability("resetKeyboard", true);
 		
 		//重点所在（解决session无法创建问题）
       
@@ -89,9 +92,9 @@ private static AppiumDriver driver;
 	
 	/**
 	 * 修改头像 
-	 * 未完成
+	 * 
 	 */
-	@Test
+	
 	public void test002ChangeMineImage() {
 		//获取个人页面个人头像框
 		WebElement mineImage = driver.findElementById("com.vanchu.apps.insurance:id/mine_layout_user");
@@ -117,7 +120,7 @@ private static AppiumDriver driver;
 	 * 修改用户姓名
 	 * 
 	 */
-	@Test
+	
 	public void test003ChangeMineName(){
 		//获取个人页面个人头像框,点击个人头像进入到信息编辑也页
 		//WebElement mineImage = driver.findElementById("com.vanchu.apps.insurance:id/mine_layout_user");
@@ -159,7 +162,7 @@ private static AppiumDriver driver;
 	/**
 	 * 修改身份证号码
 	 */
-	@Test
+	
 	public void  test004ChangeIdNo(){
 		WebElement mineIdNo = driver.findElementById("com.vanchu.apps.insurance:id/mine_info_layout_idcard");
 		mineIdNo.click();
@@ -202,9 +205,14 @@ private static AppiumDriver driver;
 	/**
 	 * 
 	 * 地址管理
+	 * 测试时，地址页最好预留1个地址，暂时未做对地址页为空的处理
 	 */
 	@Test
 	public void test005Address(){
+		//获取个人页面个人头像框，进入个人信息修改主页
+		WebElement mineImage = driver.findElementById("com.vanchu.apps.insurance:id/mine_layout_user");
+		mineImage.click();
+		
 		WebElement address = driver.findElementById("com.vanchu.apps.insurance:id/mine_info_txt_address");
 		address.click();
 		
@@ -212,76 +220,117 @@ private static AppiumDriver driver;
 		addAddress.click();
 		
 		
-//		List<AndroidElement> textFieldsList = driver.findElementsByClassName("android.widget.EditText");
-//		textFieldsList.get(0).sendKeys("王小明");
-//		textFieldsList.get(1).sendKeys("15019226377");
-//		textFieldsList.get(2).sendKeys("测试随便填写的地址");
-//		
-//			此处有BUG：估计是因为点击太快，需要加一个等待时间
-//		WebElement region = driver.findElementById("com.vanchu.apps.insurance:id/mine_address_txt_city");
-//		region.click();
-//		
-//		
-//		List<AndroidElement> cityList = driver.findElementsByClassName("android.widget.TextView");
-//		cityList.get(1).click();
-//		
-//		List<AndroidElement> provinceList = driver.findElementsByClassName("android.widget.TextView");
-//		provinceList.get(2).click();
-//		
-//		WebElement saveBtn = driver.findElementById("com.vanchu.apps.insurance:id/mine_address_edit_save");
-//		saveBtn.click();
-//		
-//		//点击添加新地址什么都不填写直接点击返回
-//		addAddress.click();
-//		WebElement addAddressBtn = driver.findElementById("com.vanchu.apps.insurance:id/title_bar_txt_back");
-//		addAddressBtn.click();
-//		
-//		
-//		
-//		//返回到我的地址页，点击第二个地址进入编辑页
-//		List<AndroidElement> editAddressList = driver.findElementsById("android.widget.RelativeLayout");
-//		//如果我的地址不为空
-//		if(editAddressList!=null)
-//		{
-//			editAddressList.get(1).click();
-//			textFieldsList.get(0).click();
-//			//清除联系人姓名的内容	
-//			String text = textFieldsList.get(0).getText();
-//			((AndroidDeviceActionShortcuts) driver).sendKeyEvent(123);//123：光标移动到输入框最右边
-//			for (int i = 0; i < text.length(); i++) {
-//		        ((AndroidDeviceActionShortcuts) driver).sendKeyEvent(67);//67：delete键
-//		    }
-//			textFieldsList.get(0).sendKeys("张大炮");
-//			
-//			
-//			textFieldsList.get(1).click();
-//			//清空手机号码
-//			text = textFieldsList.get(1).getText();
-//			((AndroidDeviceActionShortcuts) driver).sendKeyEvent(123);//123：光标移动到输入框最右边
-//			for (int i = 0; i < text.length(); i++) {
-//		        ((AndroidDeviceActionShortcuts) driver).sendKeyEvent(67);//67：delete键
-//		    }
-//			textFieldsList.get(1).sendKeys("15019226374");
-//			
-//			textFieldsList.get(2).click();
-//			//清空详细地址
-//			text = textFieldsList.get(2).getText();
-//			((AndroidDeviceActionShortcuts) driver).sendKeyEvent(123);//123：光标移动到输入框最右边
-//			for (int i = 0; i < text.length(); i++) {
-//		        ((AndroidDeviceActionShortcuts) driver).sendKeyEvent(67);//67：delete键
-//		    }
-//			textFieldsList.get(2).sendKeys("测试编辑地址");
-//			
-//			//修改区域
-//			cityList.get(1).click();;
-//			provinceList.get(1).click();
-//				
-//		}
-		//修改默认地址
+		List<AndroidElement> textFieldsList = driver.findElementsByClassName("android.widget.EditText");
+		textFieldsList.get(0).sendKeys("王小明");
+		textFieldsList.get(1).sendKeys("15019226377");
+		textFieldsList.get(2).sendKeys("测试随便填写的地址");
 		
-		//删除
+		
+		WebElement region = driver.findElementById("com.vanchu.apps.insurance:id/mine_address_txt_city");
+		region.click();
+	
+		//省
+		List<AndroidElement> cityList = driver.findElementsById("com.vanchu.apps.insurance:id/province_selected_txt_name");				
+//		int citySize = cityList.size();
+//		Random random = new Random();
+//		int cityIndex = random.nextInt(citySize)%(citySize+1);
+//		System.out.println("citySize="+citySize);
+//		System.out.println("cityIndex="+cityIndex);
+		cityList.get(4).click();
+		
+		//市
+		List<AndroidElement> provinceList = driver.findElementsByClassName("android.widget.TextView");
+//		int provinceSize = provinceList.size();
+//		int provenceIndex = random.nextInt(provinceSize)%(provinceSize-1) + 2;
+//		System.out.println("provinceSize="+provinceSize);
+//		System.out.println("provinceIndex="+provenceIndex);
+		provinceList.get(3).click();
+		
+		//区
+		List<AndroidElement> districtList = driver.findElementsByClassName("android.widget.TextView");
+		districtList.get(3).click();
+		
+		WebElement saveBtn = driver.findElementById("com.vanchu.apps.insurance:id/mine_address_edit_save");
+		saveBtn.click();
+		
+		//点击添加新地址什么都不填写直接点击返回
+		addAddress.click();
+		WebElement addAddressReturnBtn = driver.findElementById("com.vanchu.apps.insurance:id/title_bar_txt_back");
+		addAddressReturnBtn.click();
+		
+		
+		
+		//返回到我的地址页，点击第1个地址进入编辑页
+		List<AndroidElement> editAddressList = driver.findElementsById("com.vanchu.apps.insurance:id/item_mine_address_txt_edit");
+	
+		//如果我的地址不为空
+		if(editAddressList!=null)
+		{
+			editAddressList.get(1).click();
+			textFieldsList.get(0).click();
+			//清除联系人姓名的内容	
+			String text = textFieldsList.get(0).getText();
+			((AndroidDeviceActionShortcuts) driver).sendKeyEvent(123);//123：光标移动到输入框最右边
+			for (int i = 0; i < text.length(); i++) {
+		        ((AndroidDeviceActionShortcuts) driver).sendKeyEvent(67);//67：delete键
+		    }
+			textFieldsList.get(0).sendKeys("张大炮");
+			
+			
+			textFieldsList.get(1).click();
+			//清空手机号码
+			text = textFieldsList.get(1).getText();
+			((AndroidDeviceActionShortcuts) driver).sendKeyEvent(123);//123：光标移动到输入框最右边
+			for (int i = 0; i < text.length(); i++) {
+		        ((AndroidDeviceActionShortcuts) driver).sendKeyEvent(67);//67：delete键
+		    }
+			textFieldsList.get(1).sendKeys("15019226374");
+			
+			textFieldsList.get(2).click();
+			//清空详细地址
+			text = textFieldsList.get(2).getText();
+			((AndroidDeviceActionShortcuts) driver).sendKeyEvent(123);//123：光标移动到输入框最右边
+			for (int i = 0; i < text.length(); i++) {
+		        ((AndroidDeviceActionShortcuts) driver).sendKeyEvent(67);//67：delete键
+		    }
+			textFieldsList.get(2).sendKeys("测试修改地址");
+			
+			//修改区域
+			region.click();
+			cityList.get(3).click();
+			provinceList.get(3).click();
+			saveBtn.click();
+				
+		}
+		//修改默认地址
+		List<AndroidElement> defaultBtnList = driver.findElementsById("com.vanchu.apps.insurance:id/item_mine_address_txt_default_address");
+		int defaultSize = defaultBtnList.size();
+		System.out.println("defaultSize ="+defaultSize);
+		Random random = new Random();
+		for(int i=0;i<3;i++){
+			int defaultIndex = random.nextInt(defaultSize)%(defaultSize+1);	
+			System.out.println("defaultIndex="+defaultIndex);
+			defaultBtnList.get(defaultIndex).click();
+		}
+		
+		
+		//删除地址
+		List<AndroidElement> deleteBtnList = driver.findElementsById("com.vanchu.apps.insurance:id/item_mine_address_txt_delete");
+		int deleteBtnSize = deleteBtnList.size();
+		if(deleteBtnSize!=0){
+			int deleteBtnIndex = random.nextInt(deleteBtnSize)%(deleteBtnSize+1);	
+			System.out.println("deleteBtnIndex="+deleteBtnIndex);
+			deleteBtnList.get(deleteBtnIndex).click();
+			//删除弹框取消：com.vanchu.apps.insurance:id/dialog_standard_btn_positive
+			//删除弹框删除按钮:com.vanchu.apps.insurance:id/dialog_standard_btn_negative
+			
+			
+		}
+		
 		
 		//我的地址点击返回
+		//WebElement mineAddressReturnBtn = (WebElement) driver.findElementsById("com.vanchu.apps.insurance:id/title_bar_txt_back");
+		//mineAddressReturnBtn.click();
 		
 	}
 	

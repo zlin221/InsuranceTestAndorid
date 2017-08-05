@@ -321,17 +321,23 @@ private static AppiumDriver driver;
 			int deleteBtnIndex = random.nextInt(deleteBtnSize)%(deleteBtnSize+1);	
 			System.out.println("deleteBtnIndex="+deleteBtnIndex);
 			deleteBtnList.get(deleteBtnIndex).click();
-			//É¾³ýµ¯¿òÈ¡Ïû£ºcom.vanchu.apps.insurance:id/dialog_standard_btn_positive
-			//É¾³ýµ¯¿òÉ¾³ý°´Å¥:com.vanchu.apps.insurance:id/dialog_standard_btn_negative
+			//É¾³ýµ¯¿òµã»÷È¡Ïû
+			WebElement dialogCancelBtn = driver.findElementById("com.vanchu.apps.insurance:id/dialog_standard_btn_positive");
+			dialogCancelBtn.click();
 			
-			
+			//É¾³ýµ¯¿òµã»÷É¾³ý
+			deleteBtnList.get(deleteBtnIndex).click();
+			WebElement dialogDeleteBtn = driver.findElementById("com.vanchu.apps.insurance:id/dialog_standard_btn_negative");
+			dialogDeleteBtn.click();
+			System.out.println("delete success");			
 		}
 		
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		
 		//ÎÒµÄµØÖ·µã»÷·µ»Ø
-		//WebElement mineAddressReturnBtn = (WebElement) driver.findElementsById("com.vanchu.apps.insurance:id/title_bar_txt_back");
-		//mineAddressReturnBtn.click();
-		
+		WebElement mineAddressReturnBtn = driver.findElementById("com.vanchu.apps.insurance:id/title_bar_txt_back");
+		mineAddressReturnBtn.click();
+		System.out.println("return");
 	}
 	
 	

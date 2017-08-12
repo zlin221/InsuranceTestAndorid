@@ -94,11 +94,12 @@ private static AppiumDriver driver;
 	 * 修改头像 
 	 * 
 	 */
-	
+	@Test
 	public void test002ChangeMineImage() {
-		//获取个人页面个人头像框
+		//获取个人页面个人头像框，进入个人信息修改页
 		WebElement mineImage = driver.findElementById("com.vanchu.apps.insurance:id/mine_layout_user");
 		mineImage.click();
+		
 		WebElement imageUser = driver.findElementById("com.vanchu.apps.insurance:id/mine_info_img_user_icon");;
 		imageUser.click();
 		//选中图库的第一张图片进入预览
@@ -120,7 +121,7 @@ private static AppiumDriver driver;
 	 * 修改用户姓名
 	 * 
 	 */
-	
+	@Test
 	public void test003ChangeMineName(){
 		//获取个人页面个人头像框,点击个人头像进入到信息编辑也页
 		//WebElement mineImage = driver.findElementById("com.vanchu.apps.insurance:id/mine_layout_user");
@@ -162,7 +163,7 @@ private static AppiumDriver driver;
 	/**
 	 * 修改身份证号码
 	 */
-	
+	@Test
 	public void  test004ChangeIdNo(){
 		WebElement mineIdNo = driver.findElementById("com.vanchu.apps.insurance:id/mine_info_layout_idcard");
 		mineIdNo.click();
@@ -210,8 +211,8 @@ private static AppiumDriver driver;
 	@Test
 	public void test005Address(){
 		//获取个人页面个人头像框，进入个人信息修改主页
-		WebElement mineImage = driver.findElementById("com.vanchu.apps.insurance:id/mine_layout_user");
-		mineImage.click();
+//		WebElement mineImage = driver.findElementById("com.vanchu.apps.insurance:id/mine_layout_user");
+//		mineImage.click();
 		
 		WebElement address = driver.findElementById("com.vanchu.apps.insurance:id/mine_info_txt_address");
 		address.click();
@@ -339,6 +340,32 @@ private static AppiumDriver driver;
 		mineAddressReturnBtn.click();
 		System.out.println("return");
 	}
+	
+	/**
+	 * 常用被保人
+	 * 
+	 * 常用被保人是H5页面，暂时缺少链接
+	 * */
+	
+	public void test006mineRecognizee() {
+		//获取个人页面个人头像框，进入个人信息修改主页
+		WebElement mineImage = driver.findElementById("com.vanchu.apps.insurance:id/mine_layout_user");
+		mineImage.click();
+		
+		//个人信息修改页，点击常用被保人，进入常用被保人编辑页
+		WebElement mineRecognizee = driver.findElementById("com.vanchu.apps.insurance:id/mine_info_txt_insured_person");
+		mineRecognizee.click();
+		//........和开发要链接
+		
+		
+	}
+	
+	/*
+	 * 修改用户密码
+	 * 暂时缺少获取验证码的接口
+	 * 007
+	 * */
+	
 	
 	
 	
